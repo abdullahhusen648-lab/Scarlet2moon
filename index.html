@@ -26,7 +26,104 @@
             
 /* لون خلفية خفيف لتوضيح الرؤية */
         }
+.book-container {
+            position: relative;
+            width: 92vw;
+            max-width: 600px;
+            height:90vh;
+            max-height: 90vh;
+            perspective: 1500px;
+            cursor: pointer;
+        }
 
+        .page {
+overflow:hidden;
+            position: absolute;
+            top: 0; right: 0;
+            width: 100%; height: 100%;
+            background-color: #fdfaf6;    /* <-- الوضع الليلي يغير هذا فقط */
+            border: 1px solid #c8d6e5;
+            border-radius: 8px 0 0 8px;
+            box-shadow: -5px 5px 15px rgba(0,0,0,0.4);
+            transform-origin: right center;
+            transition: transform 0.7s cubic-bezier(0.645, 0.045, 0.355, 1),
+                        opacity 0.5s ease-in-out,
+                        background-color 0.4s,
+                        color 0.4s;
+            transform-style: preserve-3d;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 5%;
+            box-sizing: border-box;
+            font-size: clamp(16px, 4vw, 22px);
+            line-height: 1.8;
+            color: #2f3640;
+        }
+
+        /* الوضع الليلي: فقط الصفحة وحروفها */
+        
+body.night .page {
+            background-color: #1c2128;
+            color: #cdd9e5;
+            border-color: #30363d;
+        }
+        .page.flipped {
+            transform: rotateY(180deg);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .cover {
+            background: linear-gradient(135deg, #1e3799, #0c2461);
+            color: white;
+            border: none;
+            padding: 0;
+            overflow: hidden;
+        }
+        .cover img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 15px; left: 20px;
+            font-size: 16px;
+            color: #7f8fa6;
+            font-weight: bold;
+        }
+
+        /* --- شريط أسفل --- */
+        .bottom-bar {
+            margin-top: 20px;
+            color: #dcdde1;
+            font-size: 15px;
+            display: flex;
+            width: 92vw;
+            max-width: 600px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        /* زر الوضع الليلي */
+        #btn-night {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #dcdde1;
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        #btn-night:hover { background: rgba(255,255,255,0.2); }
+#forbook{display:none;}
         #mune {
             /* نجعل النصوص (مثل الرابط) تتوسط الصندوق الخاص بها */
             text-align: center; 
@@ -294,6 +391,9 @@ position: absolute;
 left:30%;top:1%;
 width:35%;height:20%;
 }
+#forbook{display:none;}
+.back{position: absolute;
+top:2%; right:1%;}
     </style>  
 </head>
 
@@ -333,6 +433,7 @@ width:35%;height:20%;
   .فماذا يحدث عندما يقرر الظل أن يقترب من الضوء ليس ليشعر بالدفء، بل ليدرس كيفية احتراقه؟ وهل يمكن لتجربة علمية باردة أن تتحول إلى شيء آخر... شيء أكثر خطورة على كليهما</h4>
 <h4><a id="lit" href="https://www.wattpad.com/story/397079033-%D8%B8%D9%84%D9%8C-%D8%A8%D8%AC%D9%88%D8%A7%D8%B1-%D8%A7%D9%84%D8%B6%D9%88%D8%A1">لقرٲئة قصه بٲكمله زوروا هذا موقیع</a></h4>
 <button id="back2" onclick="back()">➡رجوع</button> 
+<button id="ksat"onclick="ksat()">لقرٲة هنا اضغط علی زر</button> 
 </div>
 </div>
 
@@ -384,7 +485,7 @@ width:35%;height:20%;
     <h3>ظل بجوار ضوء 2</h3>
 
     <div class="forovero">
-    <img class="imageo" src="https://i.ibb.co/wF02vd5C/IMG-20260311-172025-198.jpg" alt="صورة">
+    <img onclick="moreo();more()"class="imageo" src="https://i.ibb.co/wF02vd5C/IMG-20260311-172025-198.jpg" alt="صورة">
     <div id="sharo"class="sharo">مستمر</div>
     <div class="overlay-boxo">
         
@@ -394,8 +495,7 @@ width:35%;height:20%;
 
   <br> <button id="likeo" onclick="addVote('likeo', '👍')">👍 ...</button> 
        <button id="unlikeo" onclick="addVote('unlikeo', '👎')">👎 ...</button> 
-       <button id="mazid"class="moreo"onclick="moreo();more()">مزید</button> 
- </div> 
+        </div> 
 
 
 
@@ -404,7 +504,7 @@ width:35%;height:20%;
     <h3>ظل بجوار ضوء </h3>
 
     <div class="forovert">
-    <img class="imaget" src="https://i.ibb.co/Q3YJ0xyX/IMG-20260311-172025-704.jpg" alt="IMG 20260311 172025 704">
+    <img onclick="moret();more()" class="imaget" src="https://i.ibb.co/Q3YJ0xyX/IMG-20260311-172025-704.jpg" alt="IMG 20260311 172025 704">
     <div id="shart"class="sharo">مكتمل</div>
     <div class="overlay-boxt">
         
@@ -413,8 +513,7 @@ width:35%;height:20%;
 
   <br> <button id="liket" onclick="addVote('liket', '👍')">👍 ...</button> 
        <button id="unliket" onclick="addVote('unliket', '👎')">👎 ...</button> 
-       <button id="mazidt" class="moret"onclick="moret();more()">مزید</button> 
- </div> 
+        </div> 
 
 
 
@@ -424,7 +523,7 @@ width:35%;height:20%;
     <h3>غبار نوابغ   </h3>
 
     <div class="foroverth">
-    <img class="imageth" src="https://i.ibb.co/dsTgmW96/IMG-20260311-172025-763.jpg" alt="IMG 20260311 172025 704">
+    <img class="imageth" onclick="moreth();more();"src="https://i.ibb.co/dsTgmW96/IMG-20260311-172025-763.jpg" alt="IMG 20260311 172025 704">
     <div id="sharth"class="sharo">قریباً</div>
     <div class="overlay-boxth">
         
@@ -433,12 +532,36 @@ width:35%;height:20%;
 
   <br> <button id="liketh" onclick="addVote('liketh', '👍')">👍 ...</button> 
        <button id="unliketh" onclick="addVote('unliketh', '👎')">👎 ...</button> 
-       <button id="mazidth" class="moreth" onclick="moreth();more();">مزید</button> 
+       
  </div> 
 
     </div>
 
+
+
+
+<nav id="forbook">
+<h1 id="namebook"></h1>
+<div class="book-container" id="book">
+    <div class="page cover" id="front-cover"></div>
+    <div class="page cover" id="back-cover">
+        <h3 style="margin-top:auto;margin-top:180px;">یتبع...</h3>
+    <br><br><br><br><br><br><br><br>    <p ">©جمیع حقوق محفوظة</p>
+        <p>الكاتبة Scarlet2moon</p>
+    </div>
+</div>
+
+<div class="bottom-bar">
+    <button id="btn-night">🌙</button>
+</div>
+<button id="backb2"class="back"onclick="bac()">➔</button> 
+</nav>
+</body>
     <script>
+function bac(){
+document.getElementById("forbook").style.display="none";
+document.getElementById("mune").style.display="block"; 
+} 
 let tran = 0;
 let tran1 = [
     "مستمر", "Ongoing", "En cours", "En curso", "Laufend", "In corso", "Devam ediyor", "در حال انتشار", "Продолжается", "连载中", "連載中", "연재중", "जारी है"
@@ -450,9 +573,7 @@ let tran2 = [
 let tran3 = [
     "قريباً", "Coming Soon", "Bientôt", "Próximamente", "Demnächst", "Prossimamente", "Yakında", "به زودی", "Скоро", "即将推出", "近日公開", "곧 공개", "जल्द आ رہا ہے"
 ];
-let tran4 = [
-    "المزيد", "More Info", "Plus d'infos", "Más información", "Mehr Infos", "Maggiori dettagli", "Daha Fazla", "اطلاعات بیشتر", "Подробнее", "更多详情", "詳細", "더보기", "अधिक जानकारी"
-];
+
 let tran5 = [
     "صفحة الكاتب", "Author Profile", "Page de l'auteur", "Perfil del autor", "Autorenprofil", "Profilo autore", "Yazar Profili", "صفحه نویسنده", "Профиль автора", "作者主页", "作者ページ", "작가 페이지", "लेखक प्रोफाइल"
 ];
@@ -560,10 +681,7 @@ function updateTran() {
     
     document.getElementById("sharo").innerText=tran1[tran]; 
     document.getElementById("shart").innerText=tran2[tran]; 
-    document.getElementById("sharth").innerText=tran3[tran]; 
-    document.getElementById("mazid").innerText=tran4[tran]; 
-    document.getElementById("mazidt").innerText=tran4[tran]; 
-    document.getElementById("mazidth").innerText=tran4[tran]; 
+    document.getElementById("sharth").innerText=tran3[tran];  
     document.getElementById("link").innerText=tran5[tran]; 
     document.getElementById("selec").innerText=tran6[tran]; 
     document.getElementById("back1").innerText=tran7[tran]+" ➡"; 
@@ -619,6 +737,23 @@ document.onkeydown = function(e) {
     } 
 }
 
+
+let aghlifah = [
+    `https://i.ibb.co/Q3YJ0xyX/IMG-20260311-172025-704.jpg`
+];
+
+
+let currentBookIndex = 0;
+
+function ksat(){
+document.getElementById("munet").style.display="none";
+document.getElementById("forbook").style.display="block"; 
+currentBookIndex = 0;
+} 
+
+
+
+// الكتاب يُبنى من Firebase - انظر script module أدناه
     </script>
 
 
@@ -627,7 +762,7 @@ document.onkeydown = function(e) {
 
         <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-      import { getFirestore, doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+      import { getFirestore, doc, getDoc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
       // إعدادات مشروعك
       const firebaseConfig = {
@@ -640,9 +775,109 @@ document.onkeydown = function(e) {
         measurementId: "G-DW8KGJV4MJ"
       };
 
+const nightBtn = document.getElementById('btn-night');
+let isNight = localStorage.getItem('sp_night') === '1';
+function applyNight() {
+    document.body.classList.toggle('night', isNight);
+    nightBtn.textContent = isNight ? '☀️' : '🌙';
+}
+applyNight();
+nightBtn.addEventListener('click', () => {
+    isNight = !isNight;
+    localStorage.setItem('sp_night', isNight ? '1' : '0');
+    applyNight();
+});
+
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
       const likesRef = doc(db, "posts", "all_likes");
+
+      // ===== جلب النص من Firebase وبناء الكتاب =====
+      async function loadBook(index) {
+          // جلب document اسمه book_0 أو book_1 إلخ
+          const snap = await getDoc(doc(db, "books", "book_" + index));
+          if (!snap.exists()) { console.error("لم يُوجد الكتاب في Firebase"); return; }
+          
+          const bookText = snap.data().text;
+          
+          // وضع صورة الغلاف (من المصفوفة المحلية)
+          document.querySelector("#front-cover").innerHTML =
+              `<img src="${aghlifah[index]}" alt="غلاف">`;
+
+          // بناء الصفحات
+          const WORDS_PER_PAGE = 115;
+          const words = bookText.trim().split(/\s+/);
+          const backCover = document.getElementById("back-cover");
+
+          // احذف أي صفحات قديمة (عند تبديل الكتاب)
+          document.querySelectorAll(".page:not(.cover)").forEach(p => p.remove());
+
+          let chunks = [];
+          for (let i = 0; i < words.length; i += WORDS_PER_PAGE) {
+              const chunk = words.slice(i, i + WORDS_PER_PAGE).join(" ");
+              chunks.push(`<div class="page"><p>${chunk}</p></div>`);
+          }
+          backCover.insertAdjacentHTML("beforebegin", chunks.join(""));
+
+          // ترتيب الطبقات وأرقام الصفحات
+          const pages = document.querySelectorAll(".page");
+          let currentPage = 0;
+          pages.forEach((page, i) => {
+              page.style.zIndex = pages.length - i;
+              if (i > 0 && i < pages.length - 1) {
+                  const num = document.createElement("div");
+                  num.className = "page-number";
+                  num.innerText = i;
+                  page.appendChild(num);
+              }
+          });
+
+          // استعادة آخر صفحة
+          const saveKey = "sp_page_" + index;
+          const saved = parseInt(localStorage.getItem(saveKey) || "0");
+          if (saved > 0 && saved < pages.length) {
+              for (let i = 0; i < saved; i++) pages[i].classList.add("flipped");
+              currentPage = saved;
+          }
+
+          function savePage() { localStorage.setItem(saveKey, currentPage); }
+
+          // التقليب
+          const book = document.getElementById("book");
+          // احذف listener القديم بإعادة clone
+          const newBook = book.cloneNode(true);
+          book.parentNode.replaceChild(newBook, book);
+
+          newBook.addEventListener("click", function(e) {
+              const rect = this.getBoundingClientRect();
+              const allPages = document.querySelectorAll(".page");
+              if (e.clientX - rect.left < rect.width / 2) {
+                  if (currentPage < allPages.length - 1) {
+                      allPages[currentPage].classList.add("flipped");
+                      currentPage++;
+                      savePage();
+                  }
+              } else {
+                  if (currentPage > 0) {
+                      currentPage--;
+                      allPages[currentPage].classList.remove("flipped");
+                      savePage();
+                  }
+              }
+          });
+      }
+
+      // استدعاء الكتاب حسب currentBookIndex
+      loadBook(currentBookIndex);
+
+      // كذلك عند الضغط على زر القراءة
+      const _origKsat = window.ksat;
+      window.ksat = function() {
+          document.getElementById("munet").style.display = "none";
+          document.getElementById("forbook").style.display = "block";
+          currentBookIndex = 0;
+          loadBook(currentBookIndex);
+      };
 
       // دالة لتلوين الأزرار باللون الأزرق حسب تصويت المستخدم المحفوظ في جهازه
       function updateColors() {
@@ -715,6 +950,7 @@ document.onkeydown = function(e) {
           // إرسال التغييرات إلى فايربيز
           await updateDoc(likesRef, updates);
       };
+
     </script>
 
 
